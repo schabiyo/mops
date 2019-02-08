@@ -1,12 +1,12 @@
 package cmd
 
 type OrganizationOpts struct {
-	Organizations OrganizationsOpts `command:"organizations" alias:"orgs" alias:"inv" description:"List all organizations"`
-	Organization  OrganizationOpts  `command:"org" alias:"o" description:"Show an organization details"`
+	Organizations OrgsOpts `command:"organizations" alias:"orgs" alias:"inv" description:"List all organizations"`
+	Organization  OrgOpts  `command:"org" alias:"o" description:"Show an organization details"`
 }
 
 type ProjectOpts struct {
-	Projects      ProjectsOpts      `command:"projects" alias:"projects" description:"Show available projects within an organization"`
+	Projects      ProjectsOpts      `command:"projects" alias:"projects" description:"Show  available projects within an organization"`
 	Project       ProjectOpts       `command:"project" alias:"p" description:"Show a project details"`
 	CreateProject CreateProjectOpts `command:"project" alias:"p" description:"Create a new project"`
 }
@@ -18,7 +18,7 @@ type ClusterOpts struct {
 
 // OmOpts describes subset of flags/options for selecting target Ops Manager installation
 type OmOpts struct {
-	URLOpt    string `long:"url"           description:"MongoDB Op Manager URL"                env:"OM_URL" required:"true"`
+	URLOpt    string `long:"url"           description:"MongoDB Op Manager URL"     env:"OM_URL" required:"true"`
 	ClientOpt string `long:"username"        description:"Override username"        env:"OM_USERNAME" required:"true"`
 	APIKeyOpt string `long:"api-key" description:"Override API Key" env:"OM_API_KEY" required:"true"`
 }
