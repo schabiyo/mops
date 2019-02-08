@@ -1,21 +1,24 @@
 package cmd
 
+//OrganizationOpts
 type OrganizationOpts struct {
-	Organizations OrgsOpts `command:"organizations" alias:"orgs" alias:"inv" description:"List all organizations"`
-	Organization  OrgOpts  `command:"org" alias:"o" description:"Show an organization details"`
+	Organizations ListOrgs `command:"organizations" alias:"orgs" description:"List all organizations"`
+	Organization  ShowOrg  `command:"org" alias:"o" description:"Show an organization details "`
 }
 
-type ProjectOpts struct {
-	Projects      ProjectsOpts      `command:"projects" alias:"projects" description:"Show  available projects within an organization"`
-	Project       ProjectOpts       `command:"project" alias:"p" description:"Show a project details"`
-	CreateProject CreateProjectOpts `command:"project" alias:"p" description:"Create a new project"`
-}
+// Project management
+/*type ProjectOpts struct {
+	Projects      ListProjects  `command:"projects" alias:"projects" description:"Show  available projects within an organization"`
+	Project       ListProject   `command:"project" alias:"p" description:"Show a project details"`
+	CreateProject CreateProject `command:"create-project"  description:"Create a new project"`
+}*/
 
-type ClusterOpts struct {
-	Clusters ClustersOpts `command:"clusters" alias:"inv" description:"Show available clusters in a project"`
-	Cluster  ClusterOpts  `command:"cluster" description:"Show a cluster detail"`
+//Cluster management
+/*type ClusterOpts struct {
+	Clusters ListClusters `command:"clusters" description:"Show available clusters in a project"`
+	Cluster  ShowCluster  `command:"cluster" description:"Show a cluster detail"`
 }
-
+*/
 // OmOpts describes subset of flags/options for selecting target Ops Manager installation
 type OmOpts struct {
 	URLOpt    string `long:"url"           description:"MongoDB Op Manager URL"     env:"OM_URL" required:"true"`
@@ -35,8 +38,8 @@ type MopsOpts struct {
 	ConfigPathOpt string `long:"config" description:"Config file path" env:"MOPS_CONFIG" default:"~/.mops/config"`
 
 	Organization OrganizationOpts `group:"Organization management"`
-	Project      ProjectOpts      `group:"Project Management"`
-	Cluster      ClusterOpts      `group:"Cluster Management"`
+	//Project      ProjectOpts      `group:"Project Management"`
+	//Cluster      ClusterOpts      `group:"Cluster Management"`
 
 	Om OmOpts `group:"MongoDB Ops Manager Options"`
 }
