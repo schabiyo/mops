@@ -13,9 +13,9 @@ brew install schabiyo/devops/mops
 Use environment variables to target an Open Service Broker API:
 
 ```shell
-export OM_URL=https://myops-manager.com
-export OM_USERNAME=username
-export OM_API_KEY=api
+export MOPS_URL=https://myops-manager.com
+export MOPS_USERNAME=username
+export MOPS_APIKEY=api
 ```
 
 

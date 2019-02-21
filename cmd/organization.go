@@ -2,7 +2,7 @@ package cmd
 
 // ShowOrg represents the 'organization' command
 type ShowOrg struct {
-	Strict bool `long:"orgId" description:"The organization Id " env:""`
+	Strict bool `long:"orgId" description:"The org Id " env:""`
 }
 
 // Execute is callback from go-flags.Commander interface
