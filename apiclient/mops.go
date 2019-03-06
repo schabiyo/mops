@@ -6,44 +6,57 @@ import (
 	"os"
 )
 
-// OpsManagerInterface is the client struct for connecting to remote Open Service Broker API
-type OpsManagerInterface struct {
-	url      string
-	username string
-	apiKey   string
+// OpsManagerAPI is the client struct for connecting to remote Open Service Broker API
+type OpsManagerAPI struct {
+	url        string
+	username   string
+	apiKey     string
+	apiVersion float32
 	//catalog  *omsapi.OMResponse
 	//Supported APIs
-	OrganizationAPI OrganizationInterface
+	OrgAPI      OrganizationAPI
+	ProjectAPI  ProjectAPI
+	SnapshotAPI SnapshotAPI
+	RestoreAPI  RestoreAPI
 }
 
-// NewOpsManagerInterface constructs OpsManagerInterface
-func NewOpsManagerInterface() *OpsManagerInterface {
-	mops := OpsManagerInterface{
-		url:      os.Getenv("MOPS_URL"),
-		username: os.Getenv("MOPS_USERNAME"),
-		apiKey:   os.Getenv("MOPS_APIKEY"),
+// NewOpsManagerAPI constructs NewOpsManagerAPI
+func NewOpsManagerAPI() *OpsManagerAPI {
+	mops := OpsManagerAPI{
+		url:        os.Getenv("MOPS_URL") + "/api/public/v1.0",
+		username:   os.Getenv("MOPS_USERNAME"),
+		apiKey:     os.Getenv("MOPS_APIKEY"),
+		apiVersion: 3.6,
 	}
 	//Validate
 	mops.validate()
+	mops.OrgAPI = NewOrganizationAPI(mops)
+	mops.ProjectAPI = NewProjectAPI(mops)
 	return &mops
 }
 
 //saveToFile save the result to a SCV file
-func (o OpsManagerInterface) saveToFile(filename string) error {
+func (o OpsManagerAPI) saveToFile(filename string) error {
 
 	return ioutil.WriteFile(filename, []byte("null"), 0666)
 
 }
 
-func (o OpsManagerInterface) validate() {
+func (o OpsManagerAPI) validate() {
 	if o.apiKey == "" {
 		fmt.Println("Please set your MOPS_APIKEY environment variable")
+		os.Exit(1)
 	}
 	if o.username == "" {
 		fmt.Println("Please set your MOPS_USERNAME environment variable")
+		os.Exit(1)
 	}
-	if o.url == "" {
+	if os.Getenv("MOPS_URL") == "" {
 		fmt.Println("Please set your MOPS_URL environment variable")
+		os.Exit(1)
 	}
-	os.Exit(1)
+	if o.apiVersion >= 4 {
+		fmt.Println("Current version only support MongoDB Ops Manager 3.6")
+		os.Exit(1)
+	}
 }

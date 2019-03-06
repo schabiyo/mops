@@ -32,3 +32,4 @@ gin-bin
 tmp
 credentials.yml
 mops
+.vscode

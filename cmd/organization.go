@@ -1,12 +1,33 @@
 package cmd
 
-// ShowOrg represents the 'organization' command
-type ShowOrg struct {
-	Strict bool `long:"orgId" description:"The org Id " env:""`
-}
+import (
+	"fmt"
 
-// Execute is callback from go-flags.Commander interface
-func (c ShowOrg) Execute(_ []string) (err error) {
+	"gopkg.in/urfave/cli.v2"
+)
 
-	return
-}
+var (
+	OrgCmd = &cli.Command{
+		Name:    "organization",
+		Aliases: []string{"org"},
+		Usage:   "options for organization management",
+		Subcommands: []*cli.Command{
+			{
+				Name:  "get",
+				Usage: "Get one snapshop details",
+				Action: func(c *cli.Context) error {
+					fmt.Println("removed task template: ", c.Args().First())
+					return nil
+				},
+			},
+			{
+				Name:  "remove",
+				Usage: "delete a snapshot",
+				Action: func(c *cli.Context) error {
+					fmt.Println("removed task template: ", c.Args().First())
+					return nil
+				},
+			},
+		},
+	}
+)
